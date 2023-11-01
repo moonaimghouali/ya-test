@@ -12,9 +12,11 @@ RUN npm install
 # Copy SRC
 COPY . .
 
+# Set environment variables for your PostgreSQL database connection
+ENV DATABASE_URL postgresql://postgres:PASSWORD@host.docker.internal:5432/$yadb?schema=public
+
 # Initialise prisma client
-RUN npx prisma generate
-RUN npx prisma db push
+RUN npx prisma migrate dev
 
 
 # Build
